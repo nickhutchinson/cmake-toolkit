@@ -1,12 +1,14 @@
 include (CMakeParseArguments)
 
-function (CMUTargetAddPackageDependencies target)
-  cmake_parse_arguments(args "" "" "PACKAGES" ${ARGV})
+function (CMUTargetAddPackageDependencies)
+  cmake_parse_arguments(args "" "" "TARGETS;PACKAGES" ${ARGV})
 
   foreach (package IN LISTS args_PACKAGES)
     __TryGetCanonicalPackageName("${package}" canonical_package)
     if (canonical_package)
-      __TargetAddPackageDependency("${target}" ${canonical_package})
+      foreach (target IN LISTS args_TARGETS)
+        __TargetAddPackageDependency("${target}" "${canonical_package}")
+      endforeach ()
     endif ()
   endforeach ()
 endfunction ()
@@ -26,7 +28,7 @@ function (__TargetAddPackageDependency target package)
 endfunction()
 
 function (__TryGetCanonicalPackageName package result)
-  # First, try as is
+  # First, try with no modifications
   if ("${package}_FOUND")
     set ("${result}" "${package}" PARENT_SCOPE)
     return ()

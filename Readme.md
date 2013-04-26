@@ -56,9 +56,9 @@ We have:
 
 ### Target/source file configuration
 
-- `CMUAddCompilerFlags(<[SOURCE sources...]|[TARGET targets...]> FLAGS flags...)`
-- `CMUTargetAddLinkerFlags(TARGET targets... FLAGS flags...)`
-- `CMUTargetAddPackageDependencies(TARGET targets... PACKAGES packages...)`
+- `CMUAddCompilerFlags(<DIRECTORY | [SOURCES sources...] | [TARGETS targets...]> FLAGS flags...)`
+- `CMUTargetAddLinkerFlags(TARGETS targets... FLAGS flags...)`
+- `CMUTargetAddPackageDependencies(TARGETS targets... PACKAGES packages...)`
 
 - `CMUTargetEnableCXX11(<target>)`
 

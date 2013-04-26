@@ -1,5 +1,7 @@
 include (CheckCXXCompilerFlag)
 
+# TODO: Xcode
+
 function (CMUTargetEnableCXX11 target)
   check_cxx_compiler_flag("-std=c++11" SUPPORTS_FLAG_STD_CXX11)
   if (SUPPORTS_FLAG_STD_CXX11)
@@ -13,8 +15,7 @@ function (CMUTargetEnableCXX11 target)
     endif ()
   endif ()
 
-
-  if (CMAKE_SYSTEM_NAME MATCHES Darwin AND CMAKE_CXX_COMPILER_ID MATCHES Clang)
+  if (CMAKE_SYSTEM_NAME STREQUAL Darwin AND CMAKE_CXX_COMPILER_ID STREQUAL Clang)
     set_property(TARGET "${target}" APPEND_STRING PROPERTY COMPILE_FLAGS " -stdlib=libc++")
     target_link_libraries("${target}" -stdlib=libc++)
   endif ()
