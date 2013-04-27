@@ -1,6 +1,6 @@
 include (CMakeParseArguments)
 
-function (CMUTargetAddPackageDependencies)
+function (CTTargetAddPackageDependencies)
   cmake_parse_arguments(args "" "" "TARGETS;PACKAGES" ${ARGV})
 
   foreach (package IN LISTS args_PACKAGES)

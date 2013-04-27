@@ -1,5 +1,5 @@
 
-function (CMUCheckBuildDirectorySanityOrDie)
+function (CTCheckBuildDirectorySanityOrDie)
   if ("${CMAKE_SOURCE_DIR}" MATCHES " " OR "${CMAKE_BINARY_DIR}" MATCHES " ")
     message(FATAL_ERROR
             "Your source or binary path contains whitespace, which Linux "

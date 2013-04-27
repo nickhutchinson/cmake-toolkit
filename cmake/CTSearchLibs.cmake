@@ -2,7 +2,7 @@ include (CheckLibraryExists)
 include (CheckFunctionExists)
 include (CMakeParseArguments)
 
-function (CMUSearchLibs function)
+function (CTSearchLibs function)
   cmake_parse_arguments(args "REQUIRED" "" "LIBRARIES" ${ARGN})
   
   set (have_function_variable_name "HAVE_${function}")

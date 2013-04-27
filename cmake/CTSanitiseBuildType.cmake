@@ -1,5 +1,5 @@
 
-function (CMUSanitiseBuildType)
+function (CTSanitiseBuildType)
   set (build_cache_string "Choose the type of build; options are: Debug Release RelWithDebInfo MinSizeRel.")
   if (NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE "Debug" CACHE STRING "${build_cache_string}" FORCE)

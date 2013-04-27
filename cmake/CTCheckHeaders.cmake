@@ -1,7 +1,7 @@
 include(CMakeParseArguments)
 include(CheckIncludeFile)
 
-function (CMUCheckHeaders)
+function (CTCheckHeaders)
   cmake_parse_arguments(args "REQUIRED" "" "" ${ARGN})
 
   foreach (header IN LISTS args_UNPARSED_ARGUMENTS)

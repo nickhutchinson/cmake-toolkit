@@ -2,7 +2,7 @@ include (CMakeParseArguments)
 
 # Annoyingly, compiler flags in CMake are a space-separated string,
 # not a list. This function allows for more consistent behaviour.
-function (CMUAddCompilerFlags scope)
+function (CTAddCompilerFlags scope)
   cmake_parse_arguments(args "" "" "FLAGS" ${ARGN})
 
   set (space_separated_flags "")
@@ -26,6 +26,6 @@ function (CMUAddCompilerFlags scope)
     # is surprising.
     add_definitions(${args_FLAGS})
   else ()
-    message(FATAL_ERROR "Invalid scope '${scope}' passed CMUAddCompilerFlags")
+    message(FATAL_ERROR "Invalid scope '${scope}' passed CTAddCompilerFlags")
   endif ()
 endfunction ()

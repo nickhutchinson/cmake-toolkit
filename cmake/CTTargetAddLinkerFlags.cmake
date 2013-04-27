@@ -1,6 +1,6 @@
 include(CMakeParseArguments)
 
-function (CMUTargetAddLinkerFlags)
+function (CTTargetAddLinkerFlags)
   cmake_parse_arguments(args "" "" "TARGETS;FLAGS" ${ARGN})
 
   foreach (target IN LISTS args_TARGETS)

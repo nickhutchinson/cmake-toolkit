@@ -1,7 +1,7 @@
 include (CMakeParseArguments)
 include (CheckSymbolExists)
 
-function (CMUCheckDecls)
+function (CTCheckDecls)
   cmake_parse_arguments(args "REQUIRED" "" "INCLUDES" ${ARGN})
 
   foreach (decl IN LISTS args_UNPARSED_ARGUMENTS)

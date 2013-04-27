@@ -1,7 +1,7 @@
 include(CMakeParseArguments)
 include(CheckFunctionExists)
 
-function (CMUCheckFuncs)
+function (CTCheckFuncs)
   cmake_parse_arguments(args "REQUIRED" "" "" ${ARGN})
 
   foreach (function IN LISTS args_UNPARSED_ARGUMENTS)
