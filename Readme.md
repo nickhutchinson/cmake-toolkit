@@ -17,14 +17,14 @@ Notable features:
 ### CTCheckBuildDirectorySanityOrDie
     CTCheckBuildDirectorySanityOrDie()
   
-Enforces that the user is doing an out-of-source build, i.e. that *CMAKE_SOURCE_DIR* is not the same as *CMAKE_BINARY_DIR*. Unfortunately, even if you include this as early as possible in your topmost CMakeLists.txt file, CMake will still clutter your source folder with a small amount of flotsam and jetsam, but it's better than nothing.
+Ensures that the user is doing an out-of-source build—i.e. that *CMAKE_SOURCE_DIR* is not the same as *CMAKE_BINARY_DIR*—and aborts if this is not the case. Unfortunately, even if you include this as early as possible in your topmost CMakeLists.txt file, CMake will still clutter the source folder with a small amount of flotsam and jetsam if the user attempts an in-source build, but it's better than nothing.
 
 ### CTSanitiseBuildType
     CTSanitiseBuildType()
 
 Ensures that *CMAKE_BUILD_TYPE* is not empty; sets it to *Debug* if it is.
 
-## Platform-checking functions
+## Platform Checks
 ### CTCheckDecls
 ### CTCheckFuncs
 ### CTCheckHeaders
@@ -56,17 +56,18 @@ On return, defines a cached variables *&lt;FUNCTION&gt;_FOUND* set to *1* or *0*
     ...
     target_link_libraries(my_target ${MATH_LIBRARIES})
 
-## Target/source/directory manipulation functions
+## Target/source/directory manipulation
 
 ### CTAddCompilerFlags
-    CTAddCompilerFlags(<DIRECTORY | SOURCES sources... | TARGETS targets...> FLAGS flags...)
+    CTAddCompilerFlags(<DIRECTORY           |
+                        SOURCES sources...  |
+                        TARGETS targets...  >
+                       FLAGS flags...)
 Adds compiler flags on a per-directory, per-source or per-target basis.
 
-### CTSetCXXStandard
-    CTSetCXXStandard(<standard> <DIRECTORY | TARGETS targets...>)
-**standard** is one of *C++11*, *C++03*, etc.
-
-Sets the appropriate compiler and/or linker flags to enable C++11 support for the given **targets**. When compiling with Clang on OS X, we also set the C++ standard library to *libc++*.
+### CTEnableCXX11
+    CTEnableCXX11(<DIRECTORY | TARGETS targets...>)
+Sets the appropriate compiler and/or linker flags to enable C++11 support for the given **targets**, or for all targets in the current directory. When compiling with Clang on OS X, we also set the C++ standard library to *libc++*.
 
 ### CTSetObjCARCEnabled
     CTSetObjCARCEnabled(<value>  
@@ -79,4 +80,11 @@ Adds the given linker flags to the given targets.
 
 ### CTTargetAddPackageDependencies
     CTTargetAddPackageDependencies(TARGETS targets... PACKAGES packages...)
-This provides an easier and safer way to set up a target with the header folders and required libraries defined by a *FindXXX.cmake* package. These variables often have inconsistent naming, especially wrt. capitalisation (is it *Boost\_INCLUDE\_DIRS* vs *BOOST\_INCLUDE\_DIRS*?) and pluralisation (*OPENGL\_INCLUDE\_DIR* vs *OPENGL\_INCLUDE\_DIRS*). *CTTargetAddPackageDependencies* automatically handles the common permutations.
+This provides an easier and safer way to set up a target with the header folders and required libraries defined by a *FindXXX.cmake* package. These variables often have inconsistent naming, especially wrt. capitalisation (is it *Boost\_INCLUDE\_DIRS* vs *BOOST\_INCLUDE\_DIRS*?) and pluralisation (is it *OPENGL\_INCLUDE\_DIR* or *OPENGL\_INCLUDE\_DIRS*?) *CTTargetAddPackageDependencies* automatically handles the common permutations.
+
+#### Sample usage:
+
+    find_package(Boost)
+    find_package(OpenGL)
+    ...
+    CTTargetAddPackageDependencies(TARGETS my_target PACKAGES OpenGL Boost)

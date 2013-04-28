@@ -1,6 +1,6 @@
 include (CMakeParseArguments)
 
-function (CTObjCARCSetIsEnabled value scope)
+function (CTObjCARCSetEnabled value scope)
   cmake_parse_arguments(args "DIRECTORY" "" "TARGETS;SOURCES" ${ARGV})
   __SanitiseBoolean(value)
 
