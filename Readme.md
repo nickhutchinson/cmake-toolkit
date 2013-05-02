@@ -36,7 +36,7 @@ Ensures that *CMAKE_BUILD_TYPE* is not empty; sets it to *Debug* if it is.
 
 As a convenience, pass the **REQUIRED** flag to abort the build if any test fails; in this case we *don't* set a cached variable, because we want the user to be able to fix the issue (e.g. *apt-get* the missing dependency) and re-configure without having to delete their CMakeCache.txt!
 
-Note that you can use `CMAKE_REQUIRED_(DEFINITIONS|INCLUDES|LIBRARIES)` to change the behaviour of these checks. 
+Note that you can use `CMAKE_REQUIRED_(DEFINITIONS|INCLUDES|LIBRARIES)` to change the behaviour of these checks, because they use *check\_symbol\_exists*, *check\_function\_exists* etc. internally.
 
 ### CTSearchLibs
     CTSearchLibs(function LIBRARIES libraries... [REQUIRED])
@@ -80,7 +80,7 @@ Adds the given linker flags to the given targets.
 
 ### CTTargetAddPackageDependencies
     CTTargetAddPackageDependencies(TARGETS targets... PACKAGES packages...)
-This provides an easier and safer way to set up a target with the header folders and required libraries defined by a *FindXXX.cmake* package. These variables often have inconsistent naming, especially wrt. capitalisation (is it *Boost\_INCLUDE\_DIRS* vs *BOOST\_INCLUDE\_DIRS*?) and pluralisation (is it *OPENGL\_INCLUDE\_DIR* or *OPENGL\_INCLUDE\_DIRS*?) *CTTargetAddPackageDependencies* automatically handles the common permutations.
+An easier and safer way to set up a target with the headers and libraries defined by a *FindXXX.cmake* package. CMake's packages often export variables with inconsistent naming, especially wrt. capitalisation (is it *Boost\_INCLUDE\_DIRS* vs *BOOST\_INCLUDE\_DIRS*?) and pluralisation (is it *OPENGL\_INCLUDE\_DIR* or *OPENGL\_INCLUDE\_DIRS*?) Fortunately, *CTTargetAddPackageDependencies* automatically handles the common permutations.
 
 #### Sample usage:
 
