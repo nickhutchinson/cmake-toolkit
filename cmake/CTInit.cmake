@@ -1,6 +1,6 @@
 include (CMakeParseArguments)
-include (./CTCheckBuildDirectorySanityOrDie)
-include (./CTSanitiseBuildType)
+include (./Internal/CTCheckBuildDirectorySanityOrDie)
+include (./Internal/CTSanitiseBuildType)
 
 function (CTInit)
   set (options
