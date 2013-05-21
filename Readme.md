@@ -14,15 +14,14 @@ Notable features:
 - More robust testing
 
 ## General functions
-### CTCheckBuildDirectorySanityOrDie
-    CTCheckBuildDirectorySanityOrDie()
-  
-Ensures that the user is doing an out-of-source build—i.e. that *CMAKE_SOURCE_DIR* is not the same as *CMAKE_BINARY_DIR*—and aborts if this is not the case. Unfortunately, even if you include this as early as possible in your topmost CMakeLists.txt file, CMake will still clutter the source folder with a small amount of flotsam and jetsam if the user attempts an in-source build, but it's better than nothing.
+### CTInit
+    CTInit([options...])
+Call this in your top-most CMakeLists.txt file to perform some sanity checks. You may optionally disable a check by passing its corresponding option.
 
-### CTSanitiseBuildType
-    CTSanitiseBuildType()
-
-Ensures that *CMAKE_BUILD_TYPE* is not empty; sets it to *Debug* if it is.
+We support the following options:
+- ALLOW_EMPTY_BUILD_TYPE: don't enforce a default "Debug" build type if none is set.
+- ALLOW_IN_SOURCE_BUILDS: by default, we enforce out-of-source builds, i.e. that *CMAKE_SOURCE_DIR* is not the same as *CMAKE_BINARY_DIR*, and we abort early if this is not the case.
+- OSX_ALLOW_UNSAFE_ASSERTMACROS: OS X has a very problematic header called AssertMacros.h that defines a set of unprefixed macros like `check()` and `verify()`. These often cause conflicts, and a series of bizarre compiler errors. By default, we disable the unprefixed versions.
 
 ## Platform Checks
 ### CTCheckDecls
@@ -37,6 +36,11 @@ Ensures that *CMAKE_BUILD_TYPE* is not empty; sets it to *Debug* if it is.
 As a convenience, pass the **REQUIRED** flag to abort the build if any test fails; in this case we *don't* set a cached variable, because we want the user to be able to fix the issue (e.g. *apt-get* the missing dependency) and re-configure without having to delete their CMakeCache.txt!
 
 Note that you can use `CMAKE_REQUIRED_(DEFINITIONS|INCLUDES|LIBRARIES)` to change the behaviour of these checks, because they use *check\_symbol\_exists*, *check\_function\_exists* etc. internally.
+
+### CTFindLibrary
+    CTFindLibrary(<VAR> <name | NAMES names...> [STATIC|SHARED|FRAMEWORK] [REQUIRED] ...)
+  
+A drop-in replacement for CMake's `find_library()` with a few added options: you can specify if you only wish to find static, shared or OS X framework libraries, and you can pass **REQUIRED** to abort the build if the library could not be found.
 
 ### CTSearchLibs
     CTSearchLibs(function LIBRARIES libraries... [REQUIRED])
