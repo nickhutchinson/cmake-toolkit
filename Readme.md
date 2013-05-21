@@ -19,6 +19,7 @@ Notable features:
 Call this in your top-most CMakeLists.txt file to perform some sanity checks. You may optionally disable a check by passing its corresponding option.
 
 We support the following options:
+
 - ALLOW_EMPTY_BUILD_TYPE: don't enforce a default "Debug" build type if none is set.
 - ALLOW_IN_SOURCE_BUILDS: by default, we enforce out-of-source builds, i.e. that *CMAKE_SOURCE_DIR* is not the same as *CMAKE_BINARY_DIR*, and we abort early if this is not the case.
 - OSX_ALLOW_UNSAFE_ASSERTMACROS: OS X has a very problematic header called AssertMacros.h that defines a set of unprefixed macros like `check()` and `verify()`. These often cause conflicts, and a series of bizarre compiler errors. By default, we disable the unprefixed versions.
