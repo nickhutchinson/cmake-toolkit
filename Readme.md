@@ -1,3 +1,7 @@
+**Ye olde warning**: This repo is no longer maintained, and dates from when I was first learning CMake a few years back; modern (post 3.0) CMake scripts have little need for any of this.
+
+---
+
 # CMake Toolkit
 
 A collection of utility functions to make common CMake tasks less painful. Note that these functions have only received cursory testing, and only with the Xcode, Makefile and Ninja generators, with Clang and GCC.
